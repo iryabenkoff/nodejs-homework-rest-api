@@ -1,23 +1,13 @@
-const { RequestError } = require("../../helpers");
+// const { RequestError } = require("../../helpers");
 const { User } = require("../../models/user");
 
 const updateSubscription = async (req, res) => {
-  const subscriptions = ["starter", "pro", "business"];
-  const { subscription: userSubscription, _id } = req.user;
-  const { subscription: bodySubscription } = req.body;
+  const { _id } = req.user;
+  const { subscription } = req.body;
 
-  if (userSubscription === bodySubscription) {
-    throw RequestError(400, "You already have the same subscription");
-  } else if (!subscriptions.includes(bodySubscription)) {
-    throw RequestError(
-      400,
-      "Subscription can only includes starter, pro or business"
-    );
-  }
+  await User.findByIdAndUpdate(_id, { subscription });
 
-  const updatedUserBySubscription = await User.findByIdAndUpdate(_id, req.body);
-
-  res.json(updatedUserBySubscription);
+  res.json(`message: Success updated to ${subscription}`);
 };
 
 module.exports = updateSubscription;
