@@ -1,7 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const { ctrlWrapper } = require("../../helpers");
-const { validateBody, authenticate } = require("../../middlewares");
+const {
+  validateBody,
+  authenticate,
+  authenticateSocial,
+} = require("../../middlewares");
 const ctrl = require("../../controllers/users");
 const { schemas } = require("../../models/user");
 
@@ -24,8 +28,32 @@ router.get("/logout", authenticate, ctrlWrapper(ctrl.logout));
 router.patch(
   "/subscription",
   authenticate,
-  // validateBody(schemas.updateSubscriptionSchema),
+  validateBody(schemas.updateSubscriptionSchema),
   ctrlWrapper(ctrl.updateSubscription)
+);
+
+router.get(
+  "/google",
+  authenticateSocial.authenticate("google", { scope: ["email", "profile"] })
+);
+
+router.get(
+  "/google/callback",
+  authenticateSocial.authenticate("google", { session: false }),
+  ctrlWrapper(ctrl.googleUser)
+);
+
+router.get(
+  "/facebook",
+  authenticateSocial.authenticate("facebook", {
+    scope: ["email", "public_profile"],
+  })
+);
+
+router.get(
+  "/facebook/callback",
+  authenticateSocial.authenticate("facebook", { session: false }),
+  ctrlWrapper(ctrl.facebookUser)
 );
 
 module.exports = router;

@@ -16,7 +16,7 @@ const userSchema = new Schema(
     password: {
       type: String,
       minLength: 8,
-      required: [true, "Password is required"],
+      // required: [true, "Password is required"],
     },
     subscription: {
       type: String,
