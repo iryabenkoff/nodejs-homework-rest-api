@@ -7,7 +7,12 @@ const updateFavorite = async (req, res) => {
   }
 
   const { contactId } = req.params;
-  const updatedFavorite = await Contact.findByIdAndUpdate(contactId, req.body);
+  const { _id } = req.user;
+
+  const updatedFavorite = await Contact.findOneAndUpdate(
+    { contactId, owner: _id },
+    req.body
+  );
 
   if (!updatedFavorite) {
     throw RequestError(404, "Not found");
