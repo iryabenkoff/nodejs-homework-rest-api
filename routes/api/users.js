@@ -5,6 +5,7 @@ const {
   validateBody,
   authenticate,
   authenticateSocial,
+  uploadMiddleware,
 } = require("../../middlewares");
 const ctrl = require("../../controllers/users");
 const { schemas } = require("../../models/user");
@@ -30,6 +31,13 @@ router.patch(
   authenticate,
   validateBody(schemas.updateSubscriptionSchema),
   ctrlWrapper(ctrl.updateSubscription)
+);
+
+router.patch(
+  "/avatars",
+  uploadMiddleware.single("avatar"),
+  authenticate,
+  ctrlWrapper(ctrl.updateAvatar)
 );
 
 router.get(

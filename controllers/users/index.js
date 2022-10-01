@@ -5,6 +5,7 @@ const logout = require("./logout");
 const updateSubscription = require("./updateSubscription");
 const googleUser = require("./googleUser");
 const facebookUser = require("./facebookUser");
+const updateAvatar = require("./updateAvatar");
 
 module.exports = {
   register,
@@ -14,4 +15,5 @@ module.exports = {
   updateSubscription,
   googleUser,
   facebookUser,
+  updateAvatar,
 };
