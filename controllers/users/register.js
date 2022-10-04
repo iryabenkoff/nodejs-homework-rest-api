@@ -29,7 +29,7 @@ const register = async (req, res) => {
   });
 
   const msg = {
-    to: "riabenko.igor@gmail.com",
+    to: email,
     from: "riabenko.igor@gmail.com",
     subject: "verify",
     text: "lorem2000",
