@@ -30,6 +30,14 @@ const userSchema = new Schema(
       type: String,
       default: null,
     },
+    verify: {
+      type: Boolean,
+      default: false,
+    },
+    verificationToken: {
+      type: String,
+      required: [true, 'Verify token is required'],
+    },
   },
   { versionKey: false, timestamps: true }
 );
@@ -52,10 +60,15 @@ const updateSubscriptionSchema = Joi.object({
     .required(),
 });
 
+const reVerify = Joi.object({
+  email: Joi.string().required(),
+});
+
 const schemas = {
   registerSchema,
   loginSchema,
   updateSubscriptionSchema,
+  reVerify,
 };
 
 const User = model("user", userSchema);
