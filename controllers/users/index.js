@@ -6,6 +6,8 @@ const updateSubscription = require("./updateSubscription");
 const googleUser = require("./googleUser");
 const facebookUser = require("./facebookUser");
 const updateAvatar = require("./updateAvatar");
+const getVerify = require("./getVerify");
+const reVerify = require("./reVerify");
 
 module.exports = {
   register,
@@ -16,4 +18,6 @@ module.exports = {
   googleUser,
   facebookUser,
   updateAvatar,
+  getVerify,
+  reVerify,
 };
